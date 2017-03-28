@@ -124,8 +124,8 @@ void parse_file ( char * filename,
       //printf("CIRCLE\t%s", line);
 
       sscanf(line, "%lf %lf %lf %lf",
-	     xvals, yvals, zvals, &r);
-      add_circle( edges, xvals[0], yvals[0], zvals[0], r, step);
+	     xvals, yvals, zvals, &r1);
+      add_circle( edges, xvals[0], yvals[0], zvals[0], r1, step);
     }//end of circle
 
     else if ( strncmp(line, "hermite", strlen(line)) == 0 ||

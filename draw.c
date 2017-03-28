@@ -32,13 +32,14 @@ void add_box( struct matrix * edges,
   
   add_edge(edges,x,y,z-depth,x+width,y,z-depth);
   add_edge(edges,x+width,y,z-depth,x+width,y-height,z-depth);
-  add_edge(edges,x+width,y-height,z-depth,x,y-height,d-depth);
-  add_edge(edges,x,y-height,d-depth,x,y,z-depth);
+  add_edge(edges,x+width,y-height,z-depth,x,y-height,z-depth);
+  add_edge(edges,x,y-height,z-depth,x,y,z-depth);
 
   add_edge(edges,x,y,z,x,y,z-depth);
   add_edge(edges,x,y-height,z,x,y-height,z-depth);
 
-  add_edge(edges,x+width,y,z,
+  add_edge(edges,x+width,y,z,x+width,y,z-depth);
+  add_edge(edges,x+width,y-height,z,x+width,y-height,z-depth);
   
 }
 
@@ -60,7 +61,8 @@ void add_box( struct matrix * edges,
 void add_sphere( struct matrix * edges, 
 		 double cx, double cy, double cz,
 		 double r, double step ) {
-  return;
+  struct matrix *points = generate_sphere(cx,cy,cz,r,step);
+  //MOREEE
 }
 
 /*======== void generate_sphere() ==========
@@ -77,7 +79,19 @@ void add_sphere( struct matrix * edges,
   ====================*/
 struct matrix * generate_sphere(double cx, double cy, double cz,
 				double r, double step ) {
-  return NULL;
+  struct matrix *points = new_matrix(3,2/step);
+  double r = 0, c = 0;
+  double x0,y0,z0,x1,y1,z1;
+  x0 = r
+  for (; r <= 1+step/2; r+=step){
+    for (; i <= 1+step/2; i+=step){
+      x1 = r*cos(c*M_PI)+cx;
+      y1 = r*sin(c*M_PI)*cos(r*2*M_PI)+cy;
+      z1 = r*sin(c*PI)*sin(r*2*M_PI)+cz;
+      add_poin
+    }
+  }
+  return points;
 }
 
 /*======== void add_torus() ==========
@@ -116,7 +130,8 @@ void add_torus( struct matrix * edges,
   ====================*/
 struct matrix * generate_torus( double cx, double cy, double cz,
 				double r1, double r2, double step ) {
-  return NULL;
+  struct matrix *points;
+  return points;
 }
 
 /*======== void add_circle() ==========
