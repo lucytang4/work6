@@ -88,7 +88,7 @@ struct matrix * generate_sphere(double cx, double cy, double cz,
   struct matrix *points = new_matrix(4,2/step);
   double rot, cir;
   double x0,y0,z0,x1,y1,z1;
-  x0 = r*cos(0)+cx;
+  /*x0 = r*cos(0)+cx;
   y0 = r*sin(0)*cos(0)+cy;
   z0 = r*sin(0)*sin(0)+cz;
   for (rot = step; rot <= 1+step/2; rot+=step){
@@ -97,8 +97,12 @@ struct matrix * generate_sphere(double cx, double cy, double cz,
       y1 = r*sin(cir*M_PI)*cos(rot*2*M_PI)+cy;
       z1 = r*sin(cir*M_PI)*sin(rot*2*M_PI)+cz;
       add_edge(points,x0,y0,z0,x1,y1,z1);
+      x0 = x1;
+      y0 = y1;
+      z0 = z1;
     }
-  }
+    }*/
+
   return points;
 }
 
