@@ -62,7 +62,13 @@ void add_sphere( struct matrix * edges,
 		 double cx, double cy, double cz,
 		 double r, double step ) {
   struct matrix *points = generate_sphere(cx,cy,cz,r,step);
-  //MOREEE
+  int col,x,y,z;
+  for (col = 0; col < points->cols; col++){
+    x = points->m[0][col];
+    y = points->m[1][col];
+    z = points->m[2][col];
+    add_point(edges,x,y,z);
+  }
 }
 
 /*======== void generate_sphere() ==========
@@ -79,16 +85,18 @@ void add_sphere( struct matrix * edges,
   ====================*/
 struct matrix * generate_sphere(double cx, double cy, double cz,
 				double r, double step ) {
-  struct matrix *points = new_matrix(3,2/step);
-  double r = 0, c = 0;
+  struct matrix *points = new_matrix(4,2/step);
+  double rot, cir;
   double x0,y0,z0,x1,y1,z1;
-  x0 = r
-  for (; r <= 1+step/2; r+=step){
-    for (; i <= 1+step/2; i+=step){
-      x1 = r*cos(c*M_PI)+cx;
-      y1 = r*sin(c*M_PI)*cos(r*2*M_PI)+cy;
-      z1 = r*sin(c*PI)*sin(r*2*M_PI)+cz;
-      add_poin
+  x0 = r*cos(0)+cx;
+  y0 = r*sin(0)*cos(0)+cy;
+  z0 = r*sin(0)*sin(0)+cz;
+  for (rot = step; rot <= 1+step/2; rot+=step){
+    for (cir = step; cir <= 1+step/2; cir+=step){
+      x1 = r*cos(cir*M_PI)+cx;
+      y1 = r*sin(cir*M_PI)*cos(rot*2*M_PI)+cy;
+      z1 = r*sin(cir*M_PI)*sin(rot*2*M_PI)+cz;
+      add_edge(points,x0,y0,z0,x1,y1,z1);
     }
   }
   return points;
@@ -130,8 +138,7 @@ void add_torus( struct matrix * edges,
   ====================*/
 struct matrix * generate_torus( double cx, double cy, double cz,
 				double r1, double r2, double step ) {
-  struct matrix *points;
-  return points;
+  return NULL;
 }
 
 /*======== void add_circle() ==========
