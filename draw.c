@@ -62,12 +62,13 @@ void add_sphere( struct matrix * edges,
 		 double cx, double cy, double cz,
 		 double r, double step ) {
   struct matrix *points = generate_sphere(cx,cy,cz,r,step);
-  int col,x,y,z;
+  int col;
+  double x,y,z;
   for (col = 0; col < points->cols; col++){
     x = points->m[0][col];
     y = points->m[1][col];
     z = points->m[2][col];
-    add_point(edges,x,y,z);
+    add_edge(edges,x,y,z,x+1,y+1,z+1);
   }
 }
 
@@ -85,23 +86,17 @@ void add_sphere( struct matrix * edges,
   ====================*/
 struct matrix * generate_sphere(double cx, double cy, double cz,
 				double r, double step ) {
-  struct matrix *points = new_matrix(4,2/step);
+  struct matrix *points = new_matrix(4,4);
   double rot, cir;
-  double x0,y0,z0,x1,y1,z1;
-  /*x0 = r*cos(0)+cx;
-  y0 = r*sin(0)*cos(0)+cy;
-  z0 = r*sin(0)*sin(0)+cz;
+  double x,y,z;
   for (rot = step; rot <= 1+step/2; rot+=step){
     for (cir = step; cir <= 1+step/2; cir+=step){
-      x1 = r*cos(cir*M_PI)+cx;
-      y1 = r*sin(cir*M_PI)*cos(rot*2*M_PI)+cy;
-      z1 = r*sin(cir*M_PI)*sin(rot*2*M_PI)+cz;
-      add_edge(points,x0,y0,z0,x1,y1,z1);
-      x0 = x1;
-      y0 = y1;
-      z0 = z1;
+      x = r*cos(cir*M_PI)+cx;
+      y = r*sin(cir*M_PI)*cos(rot*2*M_PI)+cy;
+      z = r*sin(cir*M_PI)*sin(rot*2*M_PI)+cz;
+      add_point(points,x,y,z);
     }
-    }*/
+  }
 
   return points;
 }
@@ -125,7 +120,15 @@ struct matrix * generate_sphere(double cx, double cy, double cz,
 void add_torus( struct matrix * edges, 
 		double cx, double cy, double cz,
 		double r1, double r2, double step ) {
-  return;
+  struct matrix *points = generate_torus(cx,cy,cz,r1,r2,step);
+  int col;
+  double x,y,z;
+  for (col = 0; col < points->cols; col++){
+    x = points->m[0][col];
+    y = points->m[1][col];
+    z = points->m[2][col];
+    add_edge(edges,x,y,z,x+1,y+1,z+1);
+  }
 }
 
 /*======== void generate_torus() ==========
@@ -142,7 +145,19 @@ void add_torus( struct matrix * edges,
   ====================*/
 struct matrix * generate_torus( double cx, double cy, double cz,
 				double r1, double r2, double step ) {
-  return NULL;
+  struct matrix *points = new_matrix(4,4);
+  double rot, cir;
+  double x,y,z;
+  for (rot = step; rot <= 1+step/2; rot+=step){
+    for (cir = step; cir <= 1+step/2; cir+=step){
+      x = r1*cos(cir*2*M_PI)*cos(rot*2*M_PI)+r2*cos(rot*2*M_PI)+cx;
+      y = r1*sin(cir*2*M_PI)+cy;
+      z = -r1*cos(cir*2*M_PI)*sin(rot*2*M_PI)-r2*sin(rot*2*M_PI)+cz;
+      add_point(points,x,y,z);
+    }
+  }
+
+  return points;
 }
 
 /*======== void add_circle() ==========

@@ -225,7 +225,6 @@ void parse_file ( char * filename,
 
     else if (strncmp(line,"clear",strlen(line)) == 0){
       //printf("CLEAR\t%s",line);
-      free_matrix(edges);
       edges = new_matrix(4,4);
     }//end clear
 
